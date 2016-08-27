@@ -13,7 +13,11 @@ def main():
 
     pipe = init_step_pipe(n_width, n_height, max_value, step_location, n_left_height, n_right_height)
 
-    max_difference = iterate(pipe, n_width, n_left_height, n_right_height, step_location)
+    for counter in range(100000):
+        max_difference = iterate(pipe, n_width, n_left_height, n_right_height, step_location)
+        if 1e-3 > max_difference:
+            break
+
     print("max_difference = %g" % max_difference)
 
     py.pcolor(pipe)
@@ -25,14 +29,14 @@ def iterate(pipe, n_width, n_left_height, n_right_height, step_location):
 
     # iterate left side
     for j in range(1, step_location):
-        for i in range(1, n_left_height - 1):
+        for i in range(1, n_left_height):
             new_value = (pipe[i - 1, j] + pipe[i + 1, j] + pipe[i, j - 1] + pipe[i, j + 1]) * 0.25
             max_difference = max((abs(new_value - pipe[i, j]), max_difference))
             pipe[i, j] = new_value
 
     # iterate right side
     for j in range(step_location, n_width - 1):
-        for i in range(1, n_right_height - 1):
+        for i in range(1, n_right_height):
             new_value = (pipe[i - 1, j] + pipe[i + 1, j] + pipe[i, j - 1] + pipe[i, j + 1]) * 0.25
             max_difference = max((abs(new_value - pipe[i, j]), max_difference))
             pipe[i, j] = new_value
