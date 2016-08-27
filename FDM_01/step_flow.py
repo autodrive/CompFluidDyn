@@ -16,13 +16,18 @@ def main():
 
     pipe = init_step_pipe(n_width, n_height, max_value, step_location, n_left_height, n_right_height)
 
+    save_figure(pipe, 'initial.png')
+
     counter, max_difference = iterate(pipe, n_width, n_left_height, n_right_height, step_location, max_iteration,
                                       epsilon)
+    save_figure(pipe, 'final.png')
 
     print("counter = %d, max_difference = %g" % (counter, max_difference))
 
+
+def save_figure(pipe, filename, dpi=300):
     py.pcolor(pipe)
-    py.show()
+    py.savefig(filename, dpi=dpi)
 
 
 def iterate(pipe, n_width, n_left_height, n_right_height, step_location, max_iteration, epsilon):
