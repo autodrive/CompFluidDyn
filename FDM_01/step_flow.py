@@ -3,6 +3,9 @@ import pylab as py
 
 
 def main():
+    max_iteration = 100000
+    epsilon = 1e-3
+
     n_width = 64
     n_height = n_width
     n_left_height = n_width / 2
@@ -13,12 +16,12 @@ def main():
 
     pipe = init_step_pipe(n_width, n_height, max_value, step_location, n_left_height, n_right_height)
 
-    for counter in range(100000):
+    for counter in range(max_iteration):
         max_difference = iterate(pipe, n_width, n_left_height, n_right_height, step_location)
-        if 1e-3 > max_difference:
+        if max_difference < epsilon:
             break
 
-    print("max_difference = %g" % max_difference)
+    print("counter = %d, max_difference = %g" % (counter, max_difference))
 
     py.pcolor(pipe)
     py.show()
