@@ -11,8 +11,14 @@ def main():
     step_location = n_width / 2
     max_value = n_width * 1.0
 
-    pipe = np.zeros((n_height, n_width))
+    pipe = init_step_pipe(n_width, n_height, max_value, step_location, n_left_height, n_right_height)
 
+    py.pcolor(pipe)
+    py.show()
+
+
+def init_step_pipe(n_width, n_height, max_value, step_location, n_left_height, n_right_height):
+    pipe = np.zeros((n_height, n_width))
     # initialize left part
     for j in range(0, step_location):
         pipe[n_left_height, j] = max_value
@@ -24,9 +30,7 @@ def main():
     # initialize vertical part
     for i in range(n_left_height, n_right_height):
         pipe[i, step_location] = max_value
-
-    py.pcolor(pipe)
-    py.show()
+    return pipe
 
 
 if __name__ == '__main__':
