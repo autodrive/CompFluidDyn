@@ -13,6 +13,13 @@ def main():
 
     pipe = init_step_pipe(n_width, n_height, max_value, step_location, n_left_height, n_right_height)
 
+    iterate(pipe, n_width, n_left_height, n_right_height, step_location)
+
+    py.pcolor(pipe)
+    py.show()
+
+
+def iterate(pipe, n_width, n_left_height, n_right_height, step_location):
     # iterate left side
     for j in range(1, step_location):
         for i in range(1, n_left_height - 1):
@@ -22,9 +29,6 @@ def main():
     for j in range(step_location, n_width - 1):
         for i in range(1, n_right_height - 1):
             pipe[i, j] = (pipe[i - 1, j] + pipe[i + 1, j] + pipe[i, j - 1] + pipe[i, j + 1]) * 0.25
-
-    py.pcolor(pipe)
-    py.show()
 
 
 def init_step_pipe(n_width, n_height, max_value, step_location, n_left_height, n_right_height):
