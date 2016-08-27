@@ -24,12 +24,22 @@ def init_step_pipe(n_width, n_height, max_value, step_location, n_left_height, n
         for i in range(n_left_height, n_height):
             pipe[i, j] = max_value
 
+    # initializing left end
+    factor = max_value * 1.0 / n_left_height
+    for i in range(0, n_left_height):
+        pipe[i, 0] = i * factor
+
     # initialize right part
     for j in range(step_location, n_width):
         for i in range(n_right_height, n_height):
             pipe[i, j] = max_value
 
-    # initialize vertical part
+    # initializing right end
+    factor = max_value * 1.0 / n_right_height
+    for i in range(0, n_right_height):
+        pipe[i, -1] = i * factor
+
+    # initialize step vertical part
     for i in range(n_left_height, n_right_height):
         pipe[i, step_location] = max_value
     return pipe
